@@ -1,0 +1,28 @@
+write_unix_socket   is a tiny program that simply writes data
+                    from STDIN to UNIX socket (SOCK_DGRAM)
+
+For example, it is useful for snmptrapd as traphandle program to write
+snmp traps into unix socket (to feed some daemon listen that socket)
+
+JFYI, it's runs 30-times faster than same program written in perl, so
+it's can be used on systems with big snmp traps traffic
+
+
+INSTALL
+
+$   make SOCK_PATH=/path/to/unix/socket
+$   make BINDIR=/bin DESTDIR=/home/user install
+
+USAGE
+
+$   socat -u -v UNIX-RECV:/path/to/unix/socket /dev/null &
+[1] 8974
+
+$   echo 'hello, world!' | write_unix_socket
+> 2011/12/06 10:20:15.892989  length=14 from=0 to=13
+hello, world!
+
+$   fg
+[1]  + running    socat -u -v UNIX-RECV:socket /dev/null
+^C
+$

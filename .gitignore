@@ -1,0 +1,3 @@
+*.o
+write_unix_socket
+*.swp
